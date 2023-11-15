@@ -52,6 +52,9 @@ FROM ubuntu:22.04
 
 ENV IB_GATEWAY_VERSION=10.19.2d
 
+ENV TZ=America/Chicago
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 WORKDIR /root
 
 # Prepare system
