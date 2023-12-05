@@ -2,13 +2,15 @@
 
 docker build -t ib_gateway-image:stable .
 
-docker run -d   --name iTraderBot.IB.Gateway \
+docker run -d   --name InteractiveBroker.Gateway \
+                --network iConnect \
+                --ip 10.0.1.10 \
                 --restart always \
                 --env-file .env \
                 -p 4001:4001 \
                 -p 4002:4002 \
                 -p 5900:5900 \
-                ib_gateway-image:stable
+                715153891427.dkr.ecr.us-east-2.amazonaws.com/ib_gateway-image:stable
 
 # ###########################################################################
 # The following is using docker service
@@ -32,4 +34,4 @@ docker service create \
             --publish published=4001,target=4001,mode=host \
             --publish published=4002,target=4002,mode=host \
             --publish published=5900,target=5900,mode=host \
-            ib_gateway-image:stable
+            715153891427.dkr.ecr.us-east-2.amazonaws.com/ib_gateway-image:stable

@@ -24,8 +24,14 @@ envsubst < "${IBC_INI}.tmpl" > "${IBC_INI}"
 #   TWS_PASSWORD
 #
 # ###########################################################################
-TWS_USERID=$(cat /run/secrets/iStrategy-IBKR-TWS_USERID)
-TWS_PASSWORD=$(cat /run/secrets/iStrategy-IBKR-TWS_PASSWORD)
+
+if [[ -z "$TWS_USERID" ]]; then
+  TWS_USERID=$(cat /run/secrets/iStrategy-IBKR-TWS_USERID)
+fi
+
+if [[ -z "$TWS_PASSWORD" ]]; then
+  TWS_PASSWORD=$(cat /run/secrets/iStrategy-IBKR-TWS_PASSWORD)
+fi
 
 echo "User: ${TWS_USERID}"
 # ###########################################################################
