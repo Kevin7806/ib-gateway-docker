@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 export DISPLAY=:1
 
@@ -13,28 +13,6 @@ fi
 envsubst < "${IBC_INI}.tmpl" > "${IBC_INI}"
 
 /root/scripts/fork_ports_delayed.sh &
-
-# ###########################################################################
-# 2023/09/10  Kelvin Lu
-# ###########################################################################
-# The following is using docker service secret to assign
-# IBKR TWS user ID and password into following variables
-#
-#   TWS_USERID
-#   TWS_PASSWORD
-#
-# ###########################################################################
-
-if [[ -z "$TWS_USERID" ]]; then
-  TWS_USERID=$(cat /run/secrets/iStrategy-IBKR-TWS_USERID)
-fi
-
-if [[ -z "$TWS_PASSWORD" ]]; then
-  TWS_PASSWORD=$(cat /run/secrets/iStrategy-IBKR-TWS_PASSWORD)
-fi
-
-echo "User: ${TWS_USERID}"
-# ###########################################################################
 
 /root/ibc/scripts/ibcstart.sh "${TWS_MAJOR_VRSN}" -g \
      "--tws-path=${TWS_PATH}" \
